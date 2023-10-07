@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LocalHost.Northwind_Stage 1"
+  DTS:DTSID="{50F72029-02C9-4B89-A36B-558DA8D11F74}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=LocalHost;Initial Catalog=Northwind_Stage;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Lopez-{50F72029-02C9-4B89-A36B-558DA8D11F74}LocalHost.Northwind_Stage;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

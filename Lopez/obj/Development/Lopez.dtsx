@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/6/2023 9:01:48 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DAVIER"
+  DTS:CreatorName="DAVIER\USUARIO"
+  DTS:DTSID="{BD65BDE9-D749-449F-B68B-AE5E6F4B4FBC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5314.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Lopez"
+  DTS:PackageType="5"
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{49CAE745-5158-4AB3-96E3-1F1CB9BB31A1}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DAVIER.Northwind 1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{25D2ADA1-DDCC-4116-B9C6-96EA625D98CB}"
+      DTS:ObjectName="DAVIER.Northwind 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DAVIER;Initial Catalog=Northwind;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Lopez-{25D2ADA1-DDCC-4116-B9C6-96EA625D98CB}DAVIER.Northwind 1;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Northwind_Stage]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BCD2549E-C957-489A-A172-AC3D0052FD10}"
+      DTS:ObjectName="LocalHost.Northwind_Stage">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=LocalHost;Initial Catalog=Northwind_Stage;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Lopez-{BCD2549E-C957-489A-A172-AC3D0052FD10}LocalHost.Northwind_Stage;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Clean STG_Empleado"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2029C9E1-7D45-40DF-8FCA-9CABF7773913}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Clean STG_Empleado"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{50F72029-02C9-4B89-A36B-558DA8D11F74}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE STG_EMPLEADO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load STG_Empleado"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D92D6481-5A9C-4BA5-AC38-7E4C5C708422}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="3"
+      DTS:ObjectName="Load STG_Empleado"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load STG_Empleado\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load STG_Empleado\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG_Empleado\Derived Column.Inputs[Derived Column Input].Columns[FirstName]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FirstName"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[FirstName]" />
+                    <inputColumn
+                      refId="Package\Load STG_Empleado\Derived Column.Inputs[Derived Column Input].Columns[LastName]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="LastName"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[LastName]" />
+                    <inputColumn
+                      refId="Package\Load STG_Empleado\Derived Column.Inputs[Derived Column Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load STG_Empleado\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Output].Columns[NombreCompleto]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="47"
+                      lineageId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Output].Columns[NombreCompleto]"
+                      name="NombreCompleto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[TRIM](#{Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[FirstName]}) + " " + [TRIM](#{Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[LastName]}) + " " + [TRIM](#{Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[Country]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TRIM(FirstName) + " " + TRIM(LastName) + " " + TRIM(Country)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load STG_Empleado\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG_Empleado\Read Employees"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Read Employees"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Employees]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT FirstName, LastName, Country
+FROM Employees</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG_Empleado\Read Employees.Connections[OleDbConnection]"
+                  connectionManagerID="{1734084E-3256-45B2-A5C1-8741EC59F2B1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DAVIER.Northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      length="10"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      name="FirstName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[LastName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      length="20"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[LastName]"
+                      name="LastName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="15"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      dataType="wstr"
+                      length="20"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      dataType="wstr"
+                      length="10"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      name="Country" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      name="FirstName" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      name="LastName" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load STG_Empleado\Record STG_Empleado"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Record STG_Empleado"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Stg_Empleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load STG_Empleado\Record STG_Empleado.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Northwind_Stage]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Northwind_Stage]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].Columns[NombreCompleto]"
+                      cachedDataType="wstr"
+                      cachedLength="47"
+                      cachedName="NombreCompleto"
+                      externalMetadataColumnId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_NombreCompleto]"
+                      lineageId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Output].Columns[NombreCompleto]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_SKey]"
+                      dataType="i4"
+                      name="Empleado_SKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Codigo]"
+                      dataType="i4"
+                      name="Empleado_Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Apellido]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="Empleado_Apellido" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Nombre]"
+                      dataType="wstr"
+                      length="20"
+                      name="Empleado_Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_NombreCompleto]"
+                      dataType="wstr"
+                      length="70"
+                      name="Empleado_NombreCompleto" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Direccion]"
+                      dataType="wstr"
+                      length="120"
+                      name="Empleado_Direccion" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Ciudad]"
+                      dataType="wstr"
+                      length="15"
+                      name="Empleado_Ciudad" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Region]"
+                      dataType="wstr"
+                      length="15"
+                      name="Empleado_Region" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Pais]"
+                      dataType="wstr"
+                      length="15"
+                      name="Empleado_Pais" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Postal]"
+                      dataType="wstr"
+                      length="10"
+                      name="Empleado_Postal" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_ReportID]"
+                      dataType="i4"
+                      name="Empleado_ReportID" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_SuperiorSKey]"
+                      dataType="i4"
+                      name="Empleado_SuperiorSKey" />
+                    <externalMetadataColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input].ExternalColumns[Empleado_Superior]"
+                      dataType="wstr"
+                      length="70"
+                      name="Empleado_Superior" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load STG_Empleado\Record STG_Empleado.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Empleado\Record STG_Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load STG_Empleado\Record STG_Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load STG_Empleado\Record STG_Empleado.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load STG_Empleado.Paths[Derived Column Output]"
+              endId="Package\Load STG_Empleado\Record STG_Empleado.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load STG_Empleado\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load STG_Empleado.Paths[OLE DB Source Output]"
+              endId="Package\Load STG_Empleado\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load STG_Empleado\Read Employees.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Clean STG_Empleado"
+          TopLeft="450,30" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Load STG_Empleado"
+          TopLeft="466,230" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load STG_Empleado">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Load STG_Empleado\Read Employees"
+          TopLeft="458,64" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Load STG_Empleado\Derived Column"
+          TopLeft="462,196" />
+        <EdgeLayout
+          Id="Package\Load STG_Empleado.Paths[OLE DB Source Output]"
+          TopLeft="540.25,106">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,90"
+              Start="0,0"
+              End="0,82.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="196,42"
+          Id="Package\Load STG_Empleado\Record STG_Empleado"
+          TopLeft="442,328" />
+        <EdgeLayout
+          Id="Package\Load STG_Empleado.Paths[Derived Column Output]"
+          TopLeft="540.5,238">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,90"
+              Start="0,0"
+              End="0,82.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG_Empleado\Read Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load STG_Empleado\Record STG_Empleado">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DAVIER.Northwind"
+  DTS:DTSID="{1734084E-3256-45B2-A5C1-8741EC59F2B1}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=DAVIER;Initial Catalog=Northwind;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Lopez-{1734084E-3256-45B2-A5C1-8741EC59F2B1}DAVIER.Northwind;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
